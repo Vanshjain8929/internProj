@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>क्यूएमएस समूह / QMS Group</title>
+</head>
+<link rel="stylesheet" href="cghs.css">
+<body>
+    <body>
+        <div class="header">
+            ठोसावस्था भौतिकी प्रयोगशाला बुलेटिन बोर्ड / Solid State Physics Laboratory Bulletin Board
+        </div>
+    
+        <div class="nav-bar">
+            <div class="nav-left">
+                <a href="qms.html" class="breadcrumb-link">✅ क्यूएमएस समूह / QMS Group</a>
+            </div>
+            <div class="nav-right">
+                <input id="searchInput" class="search-input" type="search" placeholder="search....">
+                <a href="login.html" class="login-link">⚙ Login</a>
+                <span id="realtime-clock"></span>
+    
+            </div>
+        </div>
+
+        <div class="container">
+
+            <div class="forum-header">Topics</div>
+    
+            <div class="stats-summary">
+                <a href="login.html" class="new-topic-btn">➕ New Topic</a>
+                <span>4 topics . page 1 of 1</span>
+            </div>
+    
+            <div class="forum-topic-list" id="topicList">
+                <!-- New topics will be inserted here dynamically -->
+                
+                <!-- Existing topics -->
+                <div class="forum-topic">
+                    <a href="#" class="forum-title">QMS Latest Guidelines</a>
+                    <p class="topic-stat">Last post by <strong>saketmittal</strong> • 01 Jul 2024, 12:30</p>
+                </div>
+                <div class="forum-topic">
+                    <a href="#" class="forum-title">QMS Rate List Updated</a>
+                    <p class="topic-stat">Last post by <strong>saketmittal</strong> • 09 Feb 2024, 12:45</p>
+                </div>
+                <div class="forum-topic">
+                    <a href="#" class="forum-title">QMS - Miscellaneous Orders</a>
+                    <p class="topic-stat">Last post by <strong>saketmittal</strong> • 21 Nov 2017, 10:34</p>
+                </div>
+                <div class="forum-topic">
+                    <a href="#" class="forum-title">QMS Forms</a>
+                    <p class="topic-stat">Last post by <strong>saketmittal</strong> • 06 Jun 2017, 13:46</p>
+                </div>
+        </div>
+
+        </div>
+    
+        <div class="forum-footer">
+            <div class="who-online">
+                <h4>👤 Who is Online</h4>
+                <p>Users browsing this forum: <strong>None</strong>. No registered users and 1 guest</p>
+            </div>
+    
+            <div class="forum-permissions">
+                <h4>🛡 Forum Permissions</h4>
+                <ul>
+                    <li>You <strong>cannot</strong> post new topics in this forum</li>
+                    <li>You <strong>cannot</strong> reply to topics in this forum</li>
+                    <li>You <strong>cannot</strong> edit your posts in this forum</li>
+                    <li>You <strong>cannot</strong> delete your posts in this forum</li>
+                    <li>You <strong>cannot</strong> post attachments in this forum</li>
+                </ul>
+            </div>
+        </div>
+    
+        <div class="footer-nav">
+            🏠 <a href="index.html"> Return to Board Index</a>
+        </div>
+    
+    
+    
+    
+    
+</body>
+    <script>
+        function updateClock() {
+            const now = new Date();
+    
+            const options = {
+                day: '2-digit',
+                month: 'short',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: false
+            };
+    
+            const formatted = now.toLocaleString('en-GB', options).replace(',', '');
+            document.getElementById('realtime-clock').textContent = formatted;
+        }
+    
+        setInterval(updateClock, 1000);
+        updateClock();
+    
+        document.getElementById('searchInput').addEventListener('input', function () {
+            const query = this.value.toLowerCase();
+            const topics = document.querySelectorAll('.forum-topic');
+            let matchFound = false;
+    
+            topics.forEach(topic => {
+                const title = topic.querySelector('.forum-title').textContent.toLowerCase();
+                if (title.includes(query)) {
+                    topic.style.display = 'block';
+                    matchFound = true;
+                } else {
+                    topic.style.display = 'none';
+                }
+            });
+    
+            // Show/hide "No results found" message
+            let noResultDiv = document.getElementById('no-results');
+            if (!matchFound) {
+                if (!noResultDiv) {
+                    noResultDiv = document.createElement('div');
+                    noResultDiv.id = 'no-results';
+                    noResultDiv.style.color = 'lightgray';
+                    noResultDiv.style.textAlign = 'center';
+                    noResultDiv.style.marginTop = '20px';
+                    noResultDiv.textContent = 'No results found.';
+                    document.querySelector('.forum-topic-list').appendChild(noResultDiv);
+                }
+            } else if (noResultDiv) {
+                noResultDiv.remove();
+            }
+        });
+    </script>
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Dashboard - CGHS Bulletin Board</title>
+    <link rel="stylesheet" href="newtopic.css">
+</head>
+<body>
+    <!-- Animated background particles -->
+    <div class="background-particles" id="particles"></div>
+
+    <header class="header">
+        <h1>ठोसावस्था भौतिकी प्रयोगशाला बुलेटिन बोर्ड / Solid State Physics Laboratory Bulletin Board</h1>
+    </header>
+
+    <nav class="nav-bar">
+        <div class="nav-left">
+            <span class="breadcrumb">
+                <a href="index.html" onclick="goToBoard()">Board index</a> &gt; 
+                सीजीएचएस/CGHS
+            </span>
+        </div>
+        <div class="nav-right">
+            <span class="user-info">Welcome, Admin</span>
+            <a href="cghs.html" class="logout-btn" onclick="logout()">Logout</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="section-header">
+            सीजीएचएस/CGHS
+        </div>
+        
+        <div class="form-content">
+            <h3>POST A NEW TOPIC</h3>
+            
+            <form id="newTopicForm">
+                <div class="form-group">
+                    <label for="subject">Subject:</label>
+                    <input type="text" id="subject" name="subject" required>
+                </div>
+
+                <!-- Toolbar -->
+                <div class="toolbar">
+                    <button type="button" class="toolbar-btn" id="boldBtn" title="Bold" onclick="formatText('bold')"><strong>B</strong></button>
+                    <button type="button" class="toolbar-btn" id="italicBtn" title="Italic" onclick="formatText('italic')"><em>I</em></button>
+                    <button type="button" class="toolbar-btn" id="underlineBtn" title="Underline" onclick="formatText('underline')"><u>U</u></button>
+
+                    <div class="toolbar-separator"></div>
+                    
+                    <button type="button" class="toolbar-btn" title="List" onclick="formatText('insertUnorderedList')">≡</button>
+                    <button type="button" class="toolbar-btn" title="List Item" onclick="formatText('insertOrderedList')">•</button>
+                    <button type="button" class="toolbar-btn" title="Image" onclick="insertImage()">🖼</button>
+                    <button type="button" class="toolbar-btn" title="URL" onclick="insertLink()">🔗</button>
+                    
+                    <div class="toolbar-separator"></div>
+                    
+                    <select class="toolbar-select" onchange="changeFontSize(this.value)">
+                      <option value="3">Normal</option>
+                      <option value="1">Tiny</option>
+                      <option value="2">Small</option>
+                      <option value="4">Large</option>
+                      <option value="5">Huge</option>
+                    </select>
+                </div>
+
+                <!-- textarea --> 
+                <div id="message" contenteditable="true" class="editor-area" placeholder="Enter your message here..."></div>
+
+                <!-- Smilies -->
+                <div class="smilies-container">
+                    <div><strong>Smilies</strong></div>
+                    <div class="smilies-grid">
+                        <button type="button" class="smiley-btn" onclick="insertSmiley('😊')" title="Smile">😊</button>
+                        <button type="button" class="smiley-btn" onclick="insertSmiley('😢')" title="Sad">😢</button>
+                        <button type="button" class="smiley-btn" onclick="insertSmiley('😮')" title="Surprised">😮</button>
+                        <button type="button" class="smiley-btn" onclick="insertSmiley('😠')" title="Mad">😠</button>
+                        <button type="button" class="smiley-btn" onclick="insertSmiley('😛')" title="Razz">😛</button>
+                        <button type="button" class="smiley-btn" onclick="insertSmiley('😳')" title="Confused">😳</button>
+                        <button type="button" class="smiley-btn" onclick="insertSmiley('😎')" title="Cool">😎</button>
+                        <button type="button" class="smiley-btn" onclick="insertSmiley('😴')" title="Sleep">😴</button>
+                        <button type="button" class="smiley-btn" onclick="insertSmiley('🙄')" title="Rolling Eyes">🙄</button>
+                        <button type="button" class="smiley-btn" onclick="insertSmiley('😕')" title="Neutral">😕</button>
+                        <button type="button" class="smiley-btn" onclick="insertSmiley('😵')" title="Shocked">😵</button>
+                        <button type="button" class="smiley-btn" onclick="insertSmiley('😈')" title="Evil">😈</button>
+                        <button type="button" class="smiley-btn" onclick="insertSmiley('😇')" title="Angel">😇</button>
+                        <button type="button" class="smiley-btn" onclick="insertSmiley('🤔')" title="Question">🤔</button>
+                        <button type="button" class="smiley-btn" onclick="insertSmiley('💡')" title="Idea">💡</button>
+                        <button type="button" class="smiley-btn" onclick="insertSmiley('💀')" title="Skull">💀</button>
+                        <button type="button" class="smiley-btn" onclick="insertSmiley('🎯')" title="Target">🎯</button>
+                        <button type="button" class="smiley-btn" onclick="insertSmiley('⚡')" title="Lightning">⚡</button>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button type="button" class="btn" onclick="saveDraft()">Save Draft</button>
+                    <button type="button" class="btn" onclick="previewPost()">Preview</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+
+                <!-- Options Section -->
+                <div class="options-section">
+                    <div class="options-tabs">
+                        <div class="tab active" onclick="showTab('options')">Options</div>
+                        <div class="tab" onclick="showTab('attachments')">Attachments</div>
+                        <div class="tab" onclick="showTab('poll')">Poll Creation</div>
+                    </div>
+
+                    <div class="options-content active" id="options-content">
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="disableBBCode" name="disableBBCode">
+                            <label for="disableBBCode">Disable BBCode</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="disableSmilies" name="disableSmilies">
+                            <label for="disableSmilies">Disable Smilies</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="parseUrls" name="parseUrls">
+                            <label for="parseUrls">Do not automatically parse URLs</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="attachSignature" name="attachSignature" checked>
+                            <label for="attachSignature">Attach a signature (signatures can be altered via the UCP)</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="notifyReply" name="notifyReply">
+                            <label for="notifyReply">Notify me when a reply is posted</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="lockTopic" name="lockTopic">
+                            <label for="lockTopic">Lock topic</label>
+                        </div>
+
+                        <div class="radio-group">
+                            <label>Post topic as:</label>
+                            <div class="radio-options">
+                                <div class="radio-option">
+                                    <input type="radio" id="normal" name="topicType" value="normal" checked>
+                                    <label for="normal">Normal</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="sticky" name="topicType" value="sticky">
+                                    <label for="sticky">Sticky</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="announce" name="topicType" value="announce">
+                                    <label for="announce">Announcement</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="global" name="topicType" value="global">
+                                    <label for="global">Global</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                    </div>
+
+                    <div class="options-content" id="attachments-content">
+                        <div style="margin-bottom: 20px;">
+                            <label style="display: block; margin-bottom: 10px; font-weight: bold; color: #207D84;">Upload Files:</label>
+                            <input type="file" id="fileUpload" multiple accept="image/*,.pdf,.doc,.docx,.txt" 
+                                   style="margin-bottom: 15px; padding: 10px; background: #222831; color: white; border: 2px solid #393E46; border-radius: 8px; width: 100%;">
+                        </div>
+                        
+                        <div id="fileList" style="margin-bottom: 15px;"></div>
+                        
+                        <div style="padding: 15px; background: rgba(32,125,132,0.1); border-radius: 8px; border-left: 4px solid #207D84;">
+                            <p style="font-size: 12px; color: #bbb; margin-bottom: 8px;"><strong>Allowed file types:</strong></p>
+                            <p style="font-size: 11px; color: #999;">Images (jpg, png, gif), Documents (pdf, doc, docx), Text files (txt)</p>
+                            <p style="font-size: 11px; color: #999; margin-top: 5px;"><strong>Maximum file size:</strong> 10MB per file</p>
+                        </div>
+                    </div>
+
+                    <div class="options-content" id="poll-content">
+                        <div style="margin-bottom: 20px;">
+                            <label style="display: block; margin-bottom: 8px; font-weight: bold; color: #207D84;">Poll Question:</label>
+                            <input type="text" id="pollQuestion" placeholder="Enter your poll question..." 
+                                   style="width: 100%; max-width: 500px; padding: 10px; background: #222831; color: white; border: 2px solid #393E46; border-radius: 8px;">
+                        </div>
+                        
+                        <div style="margin-bottom: 20px;">
+                            <label style="display: block; margin-bottom: 8px; font-weight: bold; color: #207D84;">Poll Options:</label>
+                            <div id="pollOptions">
+                                <div class="poll-option-row" style="display: flex; gap: 10px; margin-bottom: 10px; align-items: center;">
+                                    <input type="text" placeholder="Option 1" class="poll-option-input" 
+                                           style="flex: 1; padding: 8px; background: #222831; color: white; border: 2px solid #393E46; border-radius: 6px;">
+                                    <button type="button" onclick="removePollOption(this)" class="remove-option-btn" 
+                                            style="background: #dc3545; color: white; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer;">×</button>
+                                </div>
+                                <div class="poll-option-row" style="display: flex; gap: 10px; margin-bottom: 10px; align-items: center;">
+                                    <input type="text" placeholder="Option 2" class="poll-option-input" 
+                                           style="flex: 1; padding: 8px; background: #222831; color: white; border: 2px solid #393E46; border-radius: 6px;">
+                                    <button type="button" onclick="removePollOption(this)" class="remove-option-btn" 
+                                            style="background: #dc3545; color: white; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer;">×</button>
+                                </div>
+                            </div>
+                            <button type="button" onclick="addPollOption()" 
+                                    style="background: #207D84; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; margin-top: 10px;">
+                                + Add Option
+                            </button>
+                        </div>
+                        
+                        <div style="display: flex; gap: 20px; margin-bottom: 15px;">
+                            <div>
+                                <label style="display: block; margin-bottom: 5px; font-weight: bold; color: #207D84;">Poll Duration (days):</label>
+                                <input type="number" id="pollDuration" value="7" min="1" max="365" 
+                                       style="width: 100px; padding: 8px; background: #222831; color: white; border: 2px solid #393E46; border-radius: 6px;">
+                            </div>
+                            <div>
+                                <label style="display: block; margin-bottom: 5px; font-weight: bold; color: #207D84;">Max Votes per User:</label>
+                                <input type="number" id="maxVotes" value="1" min="1" max="10" 
+                                       style="width: 100px; padding: 8px; background: #222831; color: white; border: 2px solid #393E46; border-radius: 6px;">
+                            </div>
+                        </div>
+                        
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="allowRevote" name="allowRevote">
+                            <label for="allowRevote">Allow users to change their vote</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="showResults" name="showResults" checked>
+                            <label for="showResults">Show results before voting</label>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="newtopic.js"></script>
+
+    
+</body>
+</html>

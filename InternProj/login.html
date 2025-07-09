@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CGHS Login - Solid State Physics Laboratory</title>
+    
+</head>
+<link rel="stylesheet" href="login.css">
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-section">
+                <div class="logo-icon">🏥</div>
+                <div>
+                    <div class="header-title">ठोसावस्था भौतिकी प्रयोगशाला बुलेटिन बोर्ड</div>
+                    <div class="header-subtitle">Solid State Physics Laboratory Bulletin Board</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="login-container">
+            <div class="login-header">
+                <h2>Welcome </h2>
+                <p>Please sign in to add new topic</p>
+            </div>
+            
+            <form class="login-form" id="loginForm">
+                <div class="error-message" id="errorMessage"></div>
+                <div class="success-message" id="successMessage"></div>
+                
+                <div class="form-group">
+                    <label for="username">Username or Email</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                    <span class="password-toggle" onclick="togglePassword()">👁️</span>
+                </div>
+                
+                <div class="remember-forgot">
+                    <label class="remember-me">
+                        <input type="checkbox" id="rememberMe"> Remember me
+                    </label>
+                    <a href="#" class="forgot-password" onclick="showForgotPassword()">Forgot Password?</a>
+                </div>
+                
+                <button type="submit" class="login-btn" id="loginBtn">
+                    <span id="btnText">Sign In</span>
+                    <div class="loading-spinner" id="loadingSpinner"></div>
+                </button>
+            </form>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 Solid State Physics Laboratory. All rights reserved. | 
+        <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+    </footer>
+</body>
+<script src="login.js"></script>
+</html>
