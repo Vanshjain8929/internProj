@@ -2,6 +2,8 @@
 <h3 align="center">A passionate frontend developer from India</h3>
 
 - 🔭 I’m currently working on [DRDO Forum Dashboard](https://github.com/Vanshjain8929/internProj)
+- <video src="https://github.com/user-attachments/assets/680b714e-c70f-496d-8de0-193cedceba68" controls width="400"></video>
+
 
 <h3 align="left">Connect with me:</h3>
 <p align="left">
